@@ -22,7 +22,7 @@ export const updateAUserStatus = async (req, res, next) => {
       userStatus === "Active" &&
       existedUser.userStatus === "Pending"
     ) {
-      updateFields.balance = userRole === "Agent" ? 10000 : 50;
+      updateFields.balance = userRole === "Agent" ? 10000 : 40;
       updateFields.bonusPaid = true;
     }
 

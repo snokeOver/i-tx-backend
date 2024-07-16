@@ -1,17 +1,15 @@
 import UserModel from "../../shcemas/userSchema.js";
 import errorHandler from "../helper/errorHandler.js";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const loginMobile = async (req, res, next) => {
-  const { Phone, Email, Pin } = req.body;
+export const refetchUser = async (req, res, next) => {
+  const { mobile } = req.body;
+
   const jwtSecret = process.env.JWT_SECRET;
 
   try {
     // Check if user exists
-    const existingUser = await UserModel.findOne({
-      $or: [{ mobile: Phone }, { email: Email }],
-    });
+    const existingUser = await UserModel.findOne({ mobile: mobile });
 
     if (!existingUser) {
       res.status(401).send({
@@ -19,12 +17,6 @@ export const loginMobile = async (req, res, next) => {
       });
     }
 
-    const isMatched = bcrypt.compareSync(Pin, existingUser.pin);
-    if (!isMatched) {
-      res.status(401).send({
-        message: "Wrong Credentials!",
-      });
-    }
     const payload = {
       id: existingUser._id,
       name: existingUser.name,
