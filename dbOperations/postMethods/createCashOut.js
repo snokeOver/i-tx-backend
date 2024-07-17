@@ -12,6 +12,7 @@ export const createCashOut = async (req, res, next) => {
 
   const dataToSave = {
     userId: id,
+    txType: "Cash Out",
     agentId: "",
     userNumber: mobile,
     agentNumber: AgentNumber,

@@ -11,6 +11,8 @@ import { checkUserBalance } from "../dbOperations/helper/checkUserBalance.js";
 import { checkAgentRole } from "../dbOperations/helper/checkAgentRole.js";
 import { createUser } from "../dbOperations/postMethods/createUser.js";
 import { createCashOut } from "../dbOperations/postMethods/createCashOut.js";
+import { getAllTxForAgent } from "../dbOperations/getMethods/getAllTxForAgent.js";
+import { updatePendingTx } from "../dbOperations/updateMethods/updatePendingTx.js";
 
 // Initiate router
 const router = express.Router();
@@ -22,6 +24,9 @@ router.get("/test", test);
 // Get all users [Admin only data]
 router.get("/all-users/:uid", getAllUsers);
 // router.get("/all-users/:uid", verifyToken, verifyAdmin, getAllUsers);
+
+// Get all Transactions including Cash out and Cash In for specific Agent [Agent only data]
+router.get("/agent-pending-tx/:amobile", getAllTxForAgent);
 
 // ---------------------------------  Post Operations ------------------------------------//
 //Check if the Email is already in the DB or not [register page data]
@@ -56,6 +61,14 @@ router.patch(
   //   verifyToken,
   //   verifyAdmin,
   updateAUserStatus
+);
+
+// Update a specific pending cash out/ cash In tx request [Agent only data]
+router.patch(
+  "/update-pending-tx/:id",
+  //   verifyToken,
+  //   verifyAdmin,
+  updatePendingTx
 );
 
 export default router;

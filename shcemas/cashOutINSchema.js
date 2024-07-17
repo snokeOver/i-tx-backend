@@ -11,6 +11,10 @@ const cashOutINSchema = new mongoose.Schema({
     required: true,
     ref: "allUsers",
   },
+  txType: {
+    type: String,
+    required: true, //Cash Out or Cash In
+  },
   userNumber: {
     type: String,
     required: true,
