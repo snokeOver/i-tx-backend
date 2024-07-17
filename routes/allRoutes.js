@@ -10,9 +10,9 @@ import { refetchUser } from "../dbOperations/postMethods/refetchUser.js";
 import { checkUserBalance } from "../dbOperations/helper/checkUserBalance.js";
 import { checkAgentRole } from "../dbOperations/helper/checkAgentRole.js";
 import { createUser } from "../dbOperations/postMethods/createUser.js";
-import { createCashOut } from "../dbOperations/postMethods/createCashOut.js";
 import { getAllTxForAgent } from "../dbOperations/getMethods/getAllTxForAgent.js";
 import { updatePendingTx } from "../dbOperations/updateMethods/updatePendingTx.js";
+import { createCashOutIN } from "../dbOperations/postMethods/createCashOutIN.js";
 
 // Initiate router
 const router = express.Router();
@@ -44,8 +44,8 @@ router.post("/check-agent-status", checkAgentRole);
 // if Exist do nothing, or Create user with user info [login-register page request]
 router.post("/create-user", createUser);
 
-// Create a branc new cash out request [user request]
-router.post("/create-cashout", createCashOut);
+// Create a branc new cash out or cash In request [user request]
+router.post("/create-cashout-cashin", createCashOutIN);
 
 // Login user with mobile-pin [login-register page request]
 router.post("/login", loginMobile);

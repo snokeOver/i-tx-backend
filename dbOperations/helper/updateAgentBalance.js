@@ -11,7 +11,7 @@ export const updateAgentBalance = async (existedPendintTx, status, txType) => {
   let updatedFieldForAgent;
   const currAgentData = await UserModel.findById(existedPendintTx.agentId);
 
-  if (txType === "Cash Out" && status === "Accepted") {
+  if (txType === "Cash Out" && status === "Completed") {
     updatedFieldForAgent = {
       balance:
         currAgentData.balance +
@@ -33,4 +33,5 @@ export const updateAgentBalance = async (existedPendintTx, status, txType) => {
     { $set: updatedFieldForAgent },
     { new: true }
   );
+  console.log(updatedAgent);
 };

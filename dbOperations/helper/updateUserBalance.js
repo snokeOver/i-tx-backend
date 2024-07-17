@@ -1,7 +1,7 @@
 import UserModel from "../../shcemas/userSchema.js";
 
 export const updateUserBalance = async (existedPendintTx, status, txType) => {
-  if (txType === "Cash Out" && status === "Accepted") return;
+  if (txType === "Cash Out" && status === "Completed") return;
   if (txType === "Cash In" && status === "Rejected") return;
 
   const currUserData = await UserModel.findById(existedPendintTx.userId);
@@ -16,7 +16,7 @@ export const updateUserBalance = async (existedPendintTx, status, txType) => {
     };
   }
 
-  if (txType === "Cash In" && status === "Accepted") {
+  if (txType === "Cash In" && status === "Completed") {
     updatedFieldForUser = {
       balance: currUserData.balance + existedPendintTx.amount,
     };

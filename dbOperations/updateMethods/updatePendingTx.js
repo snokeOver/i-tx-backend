@@ -1,5 +1,4 @@
 import CashOutInModel from "../../shcemas/cashOutINSchema.js";
-import UserModel from "../../shcemas/userSchema.js";
 import errorHandler from "../helper/errorHandler.js";
 import { updateAgentBalance } from "../helper/updateAgentBalance.js";
 import { updateUserBalance } from "../helper/updateUserBalance.js";
@@ -31,7 +30,6 @@ export const updatePendingTx = async (req, res, next) => {
       );
 
       // Now Get the current data and update the user balance for Cash In
-
       await updateUserBalance(existedPendintTx, status, txType);
 
       // Now Get the current data and update the Agent balance

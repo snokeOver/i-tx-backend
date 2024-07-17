@@ -4,15 +4,16 @@ import bcrypt from "bcrypt";
 import UserModel from "../../shcemas/userSchema.js";
 import CashOutInModel from "../../shcemas/cashOutINSchema.js";
 
-export const createCashOut = async (req, res, next) => {
-  const { AgentNumber, mobile, Amount, Pin, id } = req.body;
+export const createCashOutIN = async (req, res, next) => {
+  const { AgentNumber, mobile, Amount, Pin, id, txType } = req.body;
   const cashOutCharge = 0.015; //1.5%
   const cashAmount = parseFloat(Amount).toFixed(2);
-  const chargeAmount = parseFloat(Amount).toFixed(2) * cashOutCharge;
+  const chargeAmount =
+    txType === "Cash Out" ? parseFloat(Amount).toFixed(2) * cashOutCharge : 0;
 
   const dataToSave = {
     userId: id,
-    txType: "Cash Out",
+    txType,
     agentId: "",
     userNumber: mobile,
     agentNumber: AgentNumber,
@@ -47,21 +48,23 @@ export const createCashOut = async (req, res, next) => {
 
     dataToSave.agentId = existingAgent._id;
 
-    // Update User balance: The amount and the charge will be deducted from the balance
+    // Update User balance: The amount and the charge will be deducted from the balance for cash out
     const updateFields = {
       ...(Amount && {
         balance: existingUser.balance - cashAmount - chargeAmount,
       }),
-
       updatedAt: Date.now(),
     };
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      existingUser._id,
-      {
-        $set: updateFields,
-      },
-      { new: true }
-    );
+
+    if (txType === "Cash Out") {
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        existingUser._id,
+        {
+          $set: updateFields,
+        },
+        { new: true }
+      );
+    }
 
     // Save new Transaction
     let savedTransaction;
