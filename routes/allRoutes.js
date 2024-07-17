@@ -13,6 +13,8 @@ import { createUser } from "../dbOperations/postMethods/createUser.js";
 import { getAllTxForAgent } from "../dbOperations/getMethods/getAllTxForAgent.js";
 import { updatePendingTx } from "../dbOperations/updateMethods/updatePendingTx.js";
 import { createCashOutIN } from "../dbOperations/postMethods/createCashOutIN.js";
+import { checkUserRole } from "../dbOperations/helper/checkUserRole.js";
+import { createSendMoney } from "../dbOperations/postMethods/createSendMoney.js";
 
 // Initiate router
 const router = express.Router();
@@ -38,14 +40,20 @@ router.post("/check-phone", checkMobileExists);
 //Check if the Balance is enought for the user for transaction [user data]
 router.post("/check-user-balance", checkUserBalance);
 
-//Check if the User status is Agetn [user data]
+//Check if the recipient status is Agent [user data]
 router.post("/check-agent-status", checkAgentRole);
+
+//Check if the recipient status is User [user data]
+router.post("/check-recipient-status", checkUserRole);
 
 // if Exist do nothing, or Create user with user info [login-register page request]
 router.post("/create-user", createUser);
 
-// Create a branc new cash out or cash In request [user request]
+// Create a brand new cash out or cash In request [user request]
 router.post("/create-cashout-cashin", createCashOutIN);
+
+// Create a brand new send money [user request]
+router.post("/create-send-money", createSendMoney);
 
 // Login user with mobile-pin [login-register page request]
 router.post("/login", loginMobile);
