@@ -1,10 +1,17 @@
 import UserModel from "../../shcemas/userSchema.js";
 
-export const updateAgentBalance = async (existedPendintTx, txType) => {
+export const updateAgentBalance = async (existedPendintTx, status, txType) => {
+  if (
+    (txType === "Cash Out" || txType === "Cash In") &&
+    status === "Rejected"
+  ) {
+    return;
+  }
+
   let updatedFieldForAgent;
   const currAgentData = await UserModel.findById(existedPendintTx.agentId);
 
-  if (txType === "Cash Out") {
+  if (txType === "Cash Out" && status === "Accepted") {
     updatedFieldForAgent = {
       balance:
         currAgentData.balance +

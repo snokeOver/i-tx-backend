@@ -31,12 +31,11 @@ export const updatePendingTx = async (req, res, next) => {
       );
 
       // Now Get the current data and update the user balance for Cash In
-      if (txType === "Cash In") {
-        await updateUserBalance(existedPendintTx);
-      }
+
+      await updateUserBalance(existedPendintTx, status, txType);
 
       // Now Get the current data and update the Agent balance
-      await updateAgentBalance(existedPendintTx, txType);
+      await updateAgentBalance(existedPendintTx, status, txType);
     }
 
     res.status(200).send({
