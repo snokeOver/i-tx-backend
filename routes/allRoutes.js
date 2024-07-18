@@ -10,11 +10,13 @@ import { refetchUser } from "../dbOperations/postMethods/refetchUser.js";
 import { checkUserBalance } from "../dbOperations/helper/checkUserBalance.js";
 import { checkAgentRole } from "../dbOperations/helper/checkAgentRole.js";
 import { createUser } from "../dbOperations/postMethods/createUser.js";
-import { getAllTxForAgent } from "../dbOperations/getMethods/getAllTxForAgent.js";
+import { getAllPendingTxForAgent } from "../dbOperations/getMethods/getAllPendingTxForAgent.js";
 import { updatePendingTx } from "../dbOperations/updateMethods/updatePendingTx.js";
 import { createCashOutIN } from "../dbOperations/postMethods/createCashOutIN.js";
 import { checkUserRole } from "../dbOperations/helper/checkUserRole.js";
 import { createSendMoney } from "../dbOperations/postMethods/createSendMoney.js";
+import { getTenTxForAgent } from "../dbOperations/getMethods/getTenTxForAgent.js";
+import { updateExistingDoc } from "../dbOperations/helper/updateExistingDoc.js";
 
 // Initiate router
 const router = express.Router();
@@ -28,7 +30,10 @@ router.get("/all-users/:uid", getAllUsers);
 // router.get("/all-users/:uid", verifyToken, verifyAdmin, getAllUsers);
 
 // Get all Transactions including Cash out and Cash In for specific Agent [Agent only data]
-router.get("/agent-pending-tx/:amobile", getAllTxForAgent);
+router.get("/agent-pending-tx/:amobile", getAllPendingTxForAgent);
+
+// Get last 10 Transactions either Completed or Rejected for specific Agent [Agent only data]
+router.get("/agent-tx-history/:amobile", getTenTxForAgent);
 
 // ---------------------------------  Post Operations ------------------------------------//
 //Check if the Email is already in the DB or not [register page data]
@@ -78,5 +83,9 @@ router.patch(
   //   verifyAdmin,
   updatePendingTx
 );
+
+// ------Danger Area:[Please Proceed with cautious]---- Update field in existing database ---------------//
+// Manual operation and update from updateExistingDoc required
+// router.get("/update", updateExistingDoc);
 
 export default router;

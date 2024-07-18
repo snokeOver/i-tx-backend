@@ -40,6 +40,12 @@ const sendMoneySchema = new mongoose.Schema({
     default: "Pending",
   },
 
+  rejectReason: {
+    type: String,
+    required: true,
+    default: "",
+  },
+
   createdAt: {
     type: Date,
     immutable: true,

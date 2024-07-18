@@ -36,9 +36,13 @@ const cashOutINSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    default: "Pending", //cound be Pending/Completed
+    default: "Pending", //cound be Pending/Completed/Rejected
   },
-
+  rejectReason: {
+    type: String,
+    required: true,
+    default: "",
+  },
   createdAt: {
     type: Date,
     immutable: true,

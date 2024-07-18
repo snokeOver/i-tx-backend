@@ -1,7 +1,7 @@
 import CashOutInModel from "../../shcemas/cashOutINSchema.js";
 import errorHandler from "../helper/errorHandler.js";
 
-export const getAllTxForAgent = async (req, res, next) => {
+export const getAllPendingTxForAgent = async (req, res, next) => {
   const agentNumber = req?.params?.amobile || "";
   const txType = req?.query?.type || "";
 
