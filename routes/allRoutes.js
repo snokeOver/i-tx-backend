@@ -15,8 +15,10 @@ import { updatePendingTx } from "../dbOperations/updateMethods/updatePendingTx.j
 import { createCashOutIN } from "../dbOperations/postMethods/createCashOutIN.js";
 import { checkUserRole } from "../dbOperations/helper/checkUserRole.js";
 import { createSendMoney } from "../dbOperations/postMethods/createSendMoney.js";
-import { getTenTxForAgent } from "../dbOperations/getMethods/getTenTxForAgent.js";
-import { updateExistingDoc } from "../dbOperations/helper/updateExistingDoc.js";
+import { getTwentyTxForAgent } from "../dbOperations/getMethods/getTwentyTxForAgent.js";
+import { getTenTxForUser } from "../dbOperations/getMethods/getTenTxForUser.js";
+
+// import { updateExistingDoc } from "../dbOperations/helper/updateExistingDoc.js";
 
 // Initiate router
 const router = express.Router();
@@ -32,8 +34,11 @@ router.get("/all-users/:uid", getAllUsers);
 // Get all Transactions including Cash out and Cash In for specific Agent [Agent only data]
 router.get("/agent-pending-tx/:amobile", getAllPendingTxForAgent);
 
+// Get last 20 Transactions either Completed or Rejected for specific Agent [Agent only data]
+router.get("/agent-tx-history/:amobile", getTwentyTxForAgent);
+
 // Get last 10 Transactions either Completed or Rejected for specific Agent [Agent only data]
-router.get("/agent-tx-history/:amobile", getTenTxForAgent);
+router.get("/user-tx-history/:amobile", getTenTxForUser);
 
 // ---------------------------------  Post Operations ------------------------------------//
 //Check if the Email is already in the DB or not [register page data]

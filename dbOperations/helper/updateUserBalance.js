@@ -28,5 +28,5 @@ export const updateUserBalance = async (existedPendintTx, status, txType) => {
     { new: true }
   );
 
-  console.log(updatedUserDetails);
+  // console.log(updatedUserDetails);
 };

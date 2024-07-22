@@ -19,6 +19,7 @@ export const createCashOutIN = async (req, res, next) => {
     agentNumber: AgentNumber,
     amount: cashAmount,
     charge: chargeAmount,
+    rejectReason: "None",
   };
 
   try {

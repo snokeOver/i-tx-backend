@@ -33,5 +33,5 @@ export const updateAgentBalance = async (existedPendintTx, status, txType) => {
     { $set: updatedFieldForAgent },
     { new: true }
   );
-  console.log(updatedAgent);
+  // console.log(updatedAgent);
 };
