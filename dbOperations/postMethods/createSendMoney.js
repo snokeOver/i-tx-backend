@@ -20,6 +20,7 @@ export const createSendMoney = async (req, res, next) => {
     amount: sendAmount,
     charge: chargeAmount,
     status: "Completed",
+    rejectReason: "None",
   };
 
   try {

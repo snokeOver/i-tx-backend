@@ -17,6 +17,7 @@ import { checkUserRole } from "../dbOperations/helper/checkUserRole.js";
 import { createSendMoney } from "../dbOperations/postMethods/createSendMoney.js";
 import { getTwentyTxForAgent } from "../dbOperations/getMethods/getTwentyTxForAgent.js";
 import { getTenTxForUser } from "../dbOperations/getMethods/getTenTxForUser.js";
+import { getAllTxForAdmin } from "../dbOperations/getMethods/getAllTxForAdmin.js";
 
 // import { updateExistingDoc } from "../dbOperations/helper/updateExistingDoc.js";
 
@@ -29,6 +30,10 @@ router.get("/test", test);
 
 // Get all users [Admin only data]
 router.get("/all-users/:uid", getAllUsers);
+// router.get("/all-users/:uid", verifyToken, verifyAdmin, getAllUsers);
+
+// Get all pending/completed/rejected transactions [Admin only data]
+router.get("/monitor-tx-history/:uid", getAllTxForAdmin);
 // router.get("/all-users/:uid", verifyToken, verifyAdmin, getAllUsers);
 
 // Get all Transactions including Cash out and Cash In for specific Agent [Agent only data]
