@@ -42,7 +42,7 @@ router.get("/agent-pending-tx/:amobile", getAllPendingTxForAgent);
 // Get last 20 Transactions either Completed or Rejected for specific Agent [Agent only data]
 router.get("/agent-tx-history/:amobile", getTwentyTxForAgent);
 
-// Get last 10 Transactions either Completed or Rejected for specific Agent [Agent only data]
+// Get last 10 Transactions Pending/Completed/Rejected for specific User [User only data]
 router.get("/user-tx-history/:amobile", getTenTxForUser);
 
 // ---------------------------------  Post Operations ------------------------------------//

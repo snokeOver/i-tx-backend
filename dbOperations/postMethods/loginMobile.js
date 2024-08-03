@@ -25,6 +25,7 @@ export const loginMobile = async (req, res, next) => {
         message: "Wrong Credentials!",
       });
     }
+
     const payload = {
       id: existingUser._id,
       name: existingUser.name,
@@ -33,6 +34,7 @@ export const loginMobile = async (req, res, next) => {
       userRole: existingUser.userRole,
       balance: existingUser.balance,
       status: existingUser.userStatus,
+      createTime: existingUser.createdAt,
     };
 
     const token = jwt.sign(payload, jwtSecret, { expiresIn: "10h" });
